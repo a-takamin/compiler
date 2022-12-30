@@ -92,6 +92,7 @@ Token *tokenize(char *p) {
         if (isdigit(*p)){
             cur = new_token(TKN_NUM, cur, p);
             cur->val = strtol(p, &p, 10);
+            // ↑strtolは数字化可能な限り読み進める動きをするので「複数桁」として認識できる
             continue;
         }
 
@@ -108,6 +109,7 @@ int main(int argc, char **argv){
         return 1;
     }
 
+    // Cのargv[0]は./9ccだから。引数は[1]からはじまる
     token = tokenize(argv[1]);
 
     printf(".intel_syntax noprefix\n");
